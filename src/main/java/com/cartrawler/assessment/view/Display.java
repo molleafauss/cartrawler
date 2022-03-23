@@ -2,10 +2,10 @@ package com.cartrawler.assessment.view;
 
 import com.cartrawler.assessment.car.CarResult;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class Display {
-    public void render(Set<CarResult> cars) {
+    public void render(Collection<CarResult> cars) {
         System.out.println(" SUPPLIER  | MAKE / MODEL                                       | SIPP |  PRICE   | FUEL");
         System.out.println("-----------+----------------------------------------------------+------+----------+-----------");
         for (CarResult car : cars) {

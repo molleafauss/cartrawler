@@ -1,6 +1,7 @@
 package com.cartrawler.assessment.app;
 
 import com.cartrawler.assessment.car.CarResult;
+import com.cartrawler.assessment.service.FilterService;
 import com.cartrawler.assessment.view.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,9 @@ public class AssessmentRunner {
 
     public static void main(String[] args) throws IOException {
         var cars = loadCsv();
+        var filterService = new FilterService();
         Display display = new Display();
-        display.render(cars);
+        display.render(filterService.filter(cars));
     }
 
     private static Set<CarResult> loadCsv() throws IOException {
