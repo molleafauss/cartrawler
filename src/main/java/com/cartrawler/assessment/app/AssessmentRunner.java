@@ -360,7 +360,7 @@ public class AssessmentRunner {
                 LOGGER.warn("Found duplicate result at row {} - {}", csv.getCurrentLineNumber(), car);
             }
         });
-        LOGGER.info("Loaded {} cars from {}", cars.size(), DEFAULT_FILE_NAME);
+        LOGGER.info("Loaded {} cars from {} [{} lines]", cars.size(), DEFAULT_FILE_NAME, csv.getRecordNumber());
         return cars;
     }
 }
