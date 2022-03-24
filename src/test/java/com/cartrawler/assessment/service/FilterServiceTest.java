@@ -3,7 +3,6 @@ package com.cartrawler.assessment.service;
 import com.cartrawler.assessment.car.CarResult;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,8 +12,8 @@ class FilterServiceTest {
     @Test
     public void testEnterprise() {
         var result = new FilterService().filter(Arrays.asList(
-                mockCar("description", "ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "PIPPO", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL)
+                mockCar("ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("PIPPO", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL)
         ));
         assertThat(result).hasSize(2);
         validateElement(result.get(0), "ENTERPRISE", "MMMM", 123.45);
@@ -24,10 +23,10 @@ class FilterServiceTest {
     @Test
     public void testSipp() {
         var result = new FilterService().filter(Arrays.asList(
-                mockCar("description", "ENTERPRISE", "XXXX", 123.45, CarResult.FuelPolicy.FULLEMPTY),
-                mockCar("description", "ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "ENTERPRISE", "EEEE", 123.45, CarResult.FuelPolicy.FULLEMPTY),
-                mockCar("description", "ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL)
+                mockCar("ENTERPRISE", "XXXX", 123.45, CarResult.FuelPolicy.FULLEMPTY),
+                mockCar("ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("ENTERPRISE", "EEEE", 123.45, CarResult.FuelPolicy.FULLEMPTY),
+                mockCar("ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL)
         ));
         assertThat(result).hasSize(4);
         validateElement(result.get(0), "ENTERPRISE", "MMMM", 123.45);
@@ -38,10 +37,10 @@ class FilterServiceTest {
 
     @Test
     public void testPrice() {
-        var car1 = mockCar("description", "ENTERPRISE", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL);
-        var car2 = mockCar("description", "ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLEMPTY);
-        var car3 = mockCar("description", "ENTERPRISE", "CCCC", 679.45, CarResult.FuelPolicy.FULLFULL);
-        var car4 = mockCar("description", "ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLEMPTY);
+        var car1 = mockCar("ENTERPRISE", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL);
+        var car2 = mockCar("ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLEMPTY);
+        var car3 = mockCar("ENTERPRISE", "CCCC", 679.45, CarResult.FuelPolicy.FULLFULL);
+        var car4 = mockCar("ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLEMPTY);
 
         var result = new FilterService().filter(Arrays.asList(car4, car3, car2, car1));
         assertThat(result).hasSize(4);
@@ -54,12 +53,12 @@ class FilterServiceTest {
     @Test
     public void testFullSample() {
         var cars = Arrays.asList(
-                mockCar("description", "ENTERPRISE", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "CUSTOM", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "CUSTOM", "EEEE", 678.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "CUSTOM", "EEEE", 115.45, CarResult.FuelPolicy.FULLFULL),
-                mockCar("description", "ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLEMPTY),
-                mockCar("description", "ENTERPRISE", "PPPP", 123.45, CarResult.FuelPolicy.FULLEMPTY)
+                mockCar("ENTERPRISE", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("CUSTOM", "MMMM", 678.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("CUSTOM", "EEEE", 678.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("CUSTOM", "EEEE", 115.45, CarResult.FuelPolicy.FULLFULL),
+                mockCar("ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLEMPTY),
+                mockCar("ENTERPRISE", "PPPP", 123.45, CarResult.FuelPolicy.FULLEMPTY)
         );
 
         var result = new FilterService().filter(cars);
@@ -72,8 +71,8 @@ class FilterServiceTest {
         validateElement(result.get(5), "CUSTOM", "EEEE", 678.45);
     }
 
-    private CarResult mockCar(String description, String supplier, String sipp, double price, CarResult.FuelPolicy fuelPolicy) {
-        return new CarResult(description, supplier, sipp, price, fuelPolicy);
+    private CarResult mockCar(String supplier, String sipp, double price, CarResult.FuelPolicy fuelPolicy) {
+        return new CarResult("Make / Model", supplier, sipp, price, fuelPolicy);
     }
 
     private void validateElement(CarResult carResult, String supplier, String sippCode, double price) {
