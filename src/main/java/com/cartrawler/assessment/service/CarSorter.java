@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -20,8 +19,7 @@ import java.util.stream.Collectors;
  */
 public class CarSorter {
 
-    static Logger LOGGER = LoggerFactory.getLogger(CarSorter.class);
-    static Set<String> ENTERPRISE_SUPPLIERS = Set.of("AVIS", "BUDGET", "ENTERPRISE", "FIREFLY", "HERTZ", "SIXT", "THRIFTY");
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarSorter.class);
 
     public List<CarResult> sort(Collection<CarResult> cars) {
         return cars.stream()
@@ -41,9 +39,9 @@ public class CarSorter {
      *      the sort score calculated as above
      */
     private int getSortScore(CarResult car) {
-        int enterpriseScore = ENTERPRISE_SUPPLIERS.contains(car.getSupplierName()) ? 0 : 1;
+        int enterpriseScore = SupplierHelper.isEnterprise(car) ? 0 : 1;
 
-        int sippScore = getSippScore(car.getSippCode());
+        int sippScore = SippHelper.getSippClass(car);
 
         int priceScore = (int) (car.getRentalCost() * 100);
 
@@ -53,18 +51,5 @@ public class CarSorter {
         score += priceScore;
         LOGGER.debug("Score for {}: {} [{} {} {}]", car, score, enterpriseScore, sippScore, priceScore);
         return score;
-    }
-
-    private int getSippScore(String sippCode) {
-        switch (sippCode.charAt(0)) {
-            case 'M':
-                return 0;
-            case 'E':
-                return 1;
-            case 'C':
-                return 2;
-            default:
-                return 3;
-        }
     }
 }
