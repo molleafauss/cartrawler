@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FilterServiceTest {
+class CarSorterTest {
 
     @Test
     public void testEnterprise() {
-        var result = new FilterService().filter(Arrays.asList(
+        var result = new CarSorter().sort(Arrays.asList(
                 mockCar("ENTERPRISE", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL),
                 mockCar("PIPPO", "MMMM", 123.45, CarResult.FuelPolicy.FULLFULL)
         ));
@@ -22,7 +22,7 @@ class FilterServiceTest {
 
     @Test
     public void testSipp() {
-        var result = new FilterService().filter(Arrays.asList(
+        var result = new CarSorter().sort(Arrays.asList(
                 mockCar("ENTERPRISE", "XXXX", 123.45, CarResult.FuelPolicy.FULLEMPTY),
                 mockCar("ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLFULL),
                 mockCar("ENTERPRISE", "EEEE", 123.45, CarResult.FuelPolicy.FULLEMPTY),
@@ -42,7 +42,7 @@ class FilterServiceTest {
         var car3 = mockCar("ENTERPRISE", "CCCC", 679.45, CarResult.FuelPolicy.FULLFULL);
         var car4 = mockCar("ENTERPRISE", "CCCC", 123.45, CarResult.FuelPolicy.FULLEMPTY);
 
-        var result = new FilterService().filter(Arrays.asList(car4, car3, car2, car1));
+        var result = new CarSorter().sort(Arrays.asList(car4, car3, car2, car1));
         assertThat(result).hasSize(4);
         validateElement(result.get(0), "ENTERPRISE", "MMMM", 123.45);
         validateElement(result.get(1), "ENTERPRISE", "MMMM", 678.45);
@@ -61,7 +61,7 @@ class FilterServiceTest {
                 mockCar("ENTERPRISE", "PPPP", 123.45, CarResult.FuelPolicy.FULLEMPTY)
         );
 
-        var result = new FilterService().filter(cars);
+        var result = new CarSorter().sort(cars);
         assertThat(result).hasSize(6);
         validateElement(result.get(0), "ENTERPRISE", "MMMM", 123.45);
         validateElement(result.get(1), "ENTERPRISE", "MMMM", 678.45);

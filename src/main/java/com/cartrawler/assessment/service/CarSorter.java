@@ -18,18 +18,15 @@ import java.util.stream.Collectors;
  * “compact” and “other” based on SIPP beginning with M, E, C respectively.
  * * Within each group sort low-to-high on price.
  */
-public class FilterService implements Comparator<CarResult> {
+public class CarSorter {
 
-    static Logger LOGGER = LoggerFactory.getLogger(FilterService.class);
+    static Logger LOGGER = LoggerFactory.getLogger(CarSorter.class);
     static Set<String> ENTERPRISE_SUPPLIERS = Set.of("AVIS", "BUDGET", "ENTERPRISE", "FIREFLY", "HERTZ", "SIXT", "THRIFTY");
 
-    public List<CarResult> filter(Collection<CarResult> cars) {
-        return cars.stream().sorted(this).collect(Collectors.toList());
-    }
-
-    @Override
-    public int compare(CarResult car1, CarResult car2) {
-        return getSortScore(car1) - getSortScore(car2);
+    public List<CarResult> sort(Collection<CarResult> cars) {
+        return cars.stream()
+                .sorted(Comparator.comparingInt(this::getSortScore))
+                .collect(Collectors.toList());
     }
 
     /**
