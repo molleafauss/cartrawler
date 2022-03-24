@@ -37,7 +37,7 @@ public class FilterService implements Comparator<CarResult> {
      * Tries to fit the score on the int, "fitting" the price into an int (by multiplying it by 100), then adding the
      * scores coming from the enterprise and sipp values. Enterprise has 2 possible values and SIPP 4, so we can try to
      * sum the 4*2=8 possibilities and shift them into the highest bit of an int, this leaves 24 bits for the price, which
-     * would allow prices up to 2^24/100 ~= 167000 - "should" be enough.
+     * would allow prices up to 2^24/100 ~= 167000 - "should" be enough (if prices are in euro/dollars).
      * @param car
      *      the car to score
      * @return
