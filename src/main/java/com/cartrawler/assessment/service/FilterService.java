@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
  */
 public class FilterService implements Comparator<CarResult> {
 
-    static Set<String> ENTERPRISE_SUPPLIERS = Set.of("AVIS", "BUDGET", "ENTERPRISE", "FIREFLY", "HERTZ", "SIXT", "THRIFTY");
     static Logger LOGGER = LoggerFactory.getLogger(FilterService.class);
+    static Set<String> ENTERPRISE_SUPPLIERS = Set.of("AVIS", "BUDGET", "ENTERPRISE", "FIREFLY", "HERTZ", "SIXT", "THRIFTY");
 
     public List<CarResult> filter(Collection<CarResult> cars) {
         return cars.stream().sorted(this).collect(Collectors.toList());
