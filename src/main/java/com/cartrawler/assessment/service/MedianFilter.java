@@ -13,6 +13,8 @@ public class MedianFilter {
 
     public MedianFilter() {
         priceBuckets = new HashMap<>();
+        // the number of buckets is fixed, and it's the product of the 4 sipp classes with the enterprise/non-enterprise
+        // supplier flag (2 options) for a total of 8. We can hardcode the initialisation of all buckets.
         for (int i = 0; i < 8; i++) {
             priceBuckets.put(i, new PriceBucket(i));
         }
