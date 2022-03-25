@@ -16,4 +16,9 @@ Starting from the provided source, below are the changes introduced:
 * Filtering of the above median FULFULL cars is handled by a separate service (again, SOLID). Behaviour is togglable via 
   command line by specifying the `--filterAboveMedian` switch.
 * Introduction of command line allowed to use also a different input file for testing.
+* Maven pom is set up so it packages everything into a runnable jar that can be invoked directly, like
+```
+  java -jar challenge-1.0-SNAPSHOT-jar-with-dependencies.jar [--filterAboveMedian] [file to read]
+```
+
 
