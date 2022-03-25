@@ -48,7 +48,7 @@ public class MedianFilter {
         if (car.getFuelPolicy() != CarResult.FuelPolicy.FULLFULL) {
             return true;
         }
-        return car.getRentalCost() < priceBuckets.get(findBucket(car)).getMedianPrice();
+        return car.getRentalCost() <= priceBuckets.get(findBucket(car)).getMedianPrice();
     }
 
     private int findBucket(CarResult car) {
